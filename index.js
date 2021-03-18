@@ -1,8 +1,8 @@
 const app = require('express')();
 const http = require('http').Server(app);
-//const io = require('socket.io')(http);
 
-// server-side
+
+
 const io = require("socket.io")(http, {
     cors: {
         origin: "*",
@@ -20,14 +20,13 @@ app.get('/', (req, res) => {
 
 
 io.on('connection', (socket) => {
-   // console.log(socket.id);
-    //socket.broadcast.emit("hi");
-    console.log('a user connected: ' + socket.id);
+
+    console.log('connected: ' + socket.id);
     socket.on('chat message',(msg)=>{
         console.log("message: " + msg)});
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('disconnected: '+ socket.id);
     })
 });
 
